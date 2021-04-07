@@ -23,7 +23,5 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag urpyllika/minter-hub:$(cd src/ && git log --format="%H" -n 1)
-    - name: Build the Docker image
+    - name: Push the Docker image
       run: docker push urpyllika/minter-hub:$(cd src/ && git log --format="%H" -n 1)
-    - name: docker logoff
-      run: docker logout
