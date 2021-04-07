@@ -4,6 +4,8 @@ ENV PATH="$PATH:/usr/local/go/bin:~/go/bin$:~/.cargo/bin"
 ENV GO_VER="1.16.2"
 ENV GO_ARCH="linux-amd64"
 
+COPY src /src
+
 RUN apt-get update && \
     apt-get install -y git build-essential wget curl libssl-dev pkg-config
 

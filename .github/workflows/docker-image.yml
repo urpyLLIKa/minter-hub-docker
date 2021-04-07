@@ -14,7 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Update submodules recursive
+      run: git submodule update --recursive
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag urpyllika/minter-hub:$(cd src/ && git log --format="%H" -n 1) -v src:/src
+      run: docker build . --file Dockerfile --tag urpyllika/minter-hub:$(cd src/ && git log --format="%H" -n 1)
     - name: Build the Docker image
       run: docker push urpyllika/minter-hub:$(cd src/ && git log --format="%H" -n 1)
