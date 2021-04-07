@@ -5,7 +5,7 @@ ENV GO_VER="1.16.2"
 ENV GO_ARCH="linux-amd64"
 ENV RUSTUP_VER=1.51.0
 
-COPY src /src/inter-hub
+COPY src /src/minter-hub
 
 RUN apt-get update && \
     apt-get install -y git build-essential wget curl libssl-dev pkg-config
