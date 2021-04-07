@@ -7,9 +7,7 @@ ENV GO_ARCH="linux-amd64"
 RUN apt-get update && \
     apt-get install -y git build-essential wget curl libssl-dev pkg-config
 
-RUN mkdir /src
-
-RUN cd /src  && \
+RUN cd /tmp  && \
     wget https://golang.org/dl/go${GO_VER}.${GO_ARCH}.tar.gz && \
     rm -rf /usr/local/go && \
     tar -C /usr/local -xzf go${GO_VER}.${GO_ARCH}.tar.gz

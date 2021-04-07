@@ -14,7 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Get commit version
+      run: GIT_COMMIT=$(cd src/ && git log --format="%H" -n 1)
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag urpyllika/minter-hub:$(date +%s)
+      run: docker build . --file Dockerfile --tag urpyllika/minter-hub:$GIT_COMMIT -v src:/src
     - name: Build the Docker image
-      run: docker push urpyllika/minter-hub:$(date +%s)      
+      run: docker push urpyllika/minter-hub:$GIT_COMMIT
