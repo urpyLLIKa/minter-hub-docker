@@ -3,6 +3,7 @@ FROM debian:buster AS builder
 ENV PATH="$PATH:/usr/local/go/bin:~/go/bin$:~/.cargo/bin"
 ENV GO_VER="1.16.2"
 ENV GO_ARCH="linux-amd64"
+ENV RUSTUP_VER=1.51.0
 
 COPY src /src
 
@@ -14,7 +15,8 @@ RUN cd /tmp  && \
     rm -rf /usr/local/go && \
     tar -C /usr/local -xzf go${GO_VER}.${GO_ARCH}.tar.gz
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/run  && sh /tmp/run -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /usr/local/bin/rustup  && \
+    sh /tmp/run -y --default-toolchain $RUSTUP_VER
 
 RUN cd /src && git clone https://github.com/MinterTeam/minter-hub.git
 
@@ -29,8 +31,6 @@ RUN cd /src/minter-hub/orchestrator && \
 
 FROM debian:buster-slim
 LABEL project="hub-minter"
-LABEL source="https://github.com/MinterTeam/minter-hub"
-LABEL commit="328ad50a7c716383bc29f90eeca1ddf99ba29f66"
 
 RUN apt-get update && apt-get install libssl1.1
 COPY --from=builder /root/go/bin /usr/local/bin
