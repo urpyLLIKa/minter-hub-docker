@@ -18,8 +18,6 @@ RUN cd /tmp  && \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/run  && \
     sh /tmp/run -y --default-toolchain $RUSTUP_VER
 
-RUN cd /src/minter-hub/ && git submodule update --init --recursive
-
 RUN cd /src/minter-hub/chain && make install && \
     cd /src/minter-hub/minter-connector && make install && \
     cd /src/minter-hub/oracle && make install
