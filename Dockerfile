@@ -5,6 +5,11 @@ ENV GO_VER="1.16.2"
 ENV GO_ARCH="linux-amd64"
 ENV RUSTUP_VER=1.51.0
 
+LABEL project="hub-minter"
+LABEL GO_VERSION=$GO_VER
+LABEL GO_ARCH=$GO_ARCH
+LABEL RUSTUP_VERSION=$RUSTUP_VER
+
 COPY src /src/minter-hub
 
 RUN apt-get update && \
@@ -27,10 +32,6 @@ RUN cd /src/minter-hub/orchestrator && \
     /root/.cargo/bin/cargo install --locked --path register_delegate_keys
 
 FROM debian:buster-slim
-LABEL project="hub-minter"
-LABEL GO_VERSION=$GO_VER
-LABEL GO_ARCH=$GO_ARCH
-LABEL RUSTUP_VERSION=$RUSTUP_VER
 
 RUN apt-get update && apt-get install libssl1.1
 COPY --from=builder /root/go/bin /usr/local/bin
