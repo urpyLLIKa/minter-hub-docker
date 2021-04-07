@@ -15,7 +15,7 @@ RUN cd /tmp  && \
     rm -rf /usr/local/go && \
     tar -C /usr/local -xzf go${GO_VER}.${GO_ARCH}.tar.gz
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /usr/local/bin/rustup  && \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/run  && \
     sh /tmp/run -y --default-toolchain $RUSTUP_VER
 
 RUN cd /src && git clone https://github.com/MinterTeam/minter-hub.git
